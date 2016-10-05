@@ -1,0 +1,17 @@
+{
+    "title": "Alitas a la bbq",
+    "description": "Alitas cobiertas una dulce sals bbq",
+    "cook_time": "02:10:05",
+    "dificult": "M",
+    "ingredients": [
+        {
+            "ingredient":
+            {
+                "name": "Alitas"
+            },
+            "used": 2,
+            "unit": "K"
+        }
+    ],
+    "directions": "Freir alitas, hacer salsa y banar alitas"
+}
