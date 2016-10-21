@@ -30,6 +30,7 @@ class RecipeSerializer(serializers.Serializer):
     ingredients = UserIngredientSerializer(many=True)
     directions = serializers.CharField()
     created_at = serializers.DateTimeField(read_only=True)
+    pk = serializers.IntegerField(read_only=True)
 
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients', None)
