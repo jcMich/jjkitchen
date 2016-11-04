@@ -1,2 +1,11 @@
+/node_modules
+bundle.js
+npm-debug.log
+
+# python
 *.pyc
 *.sqlite3
+/static
+# IntelliJ
+*.iml
+/.idea

@@ -1,0 +1,49 @@
+/*+++++++ Offcanvas (react-burger-menu) ++++++*/
+.bm-menu {
+  background: #333;
+  padding: 1em 0;
+}
+
+.bm-menu .bm-item-list {
+  color: #b8b7ad;
+}
+
+.bm-menu .bm-item-list a {
+  padding: 0.8em;
+  color: rgba(255,255,255,.5);
+  border-bottom: 1px solid #1c1c1c;
+  border-top: none;
+  border-bottom: none;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+  display: block;
+  text-decoration: none;
+}
+
+.bm-menu .bm-item-list a:hover {
+  color: #fff;
+}
+
+.bm-menu .bm-item-list a > i {
+  padding-right: 10px;
+  font-size: 1.4rem;
+}
+
+.bm-menu .bm-item-list a.fa-stack {
+  font-size: 0.8rem;
+}
+
+.bm-menu .bm-item-list .navbar-toggler {
+  background: #292929;
+  color: #fff;
+  border-radius: 0;
+  font-size: 1rem;
+}
+
+.bm-menu .bm-item-list .navbar-toggler i {
+  color: #999;
+}
+
+.bm-overlay {
+  	background: rgba(0, 0, 0, 0.7);
+}
