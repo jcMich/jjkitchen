@@ -11,30 +11,6 @@ DIFICULT_CHOICES = (
     (HIGHT_DIFICULT, _("Difucult"))
 )
 
-KILO_UNIT = 'KG'
-GRAMO_UNIT = 'GR'
-LITRO_UNIT = 'LT'
-PIZCA_UNIT = 'PZ'
-TROZO_UNIT = 'TR'
-HOJAS_UNIT = 'HJ'
-RAMA_UNIT = 'RM'
-CUADRO_UNIT = 'CD'
-PIEZA_UNIT = 'PZ'
-UNIDAD_UNIT = "UN"
-
-UNIT_CHOICES = (
-    (KILO_UNIT, "Kilo"),
-    (GRAMO_UNIT, "Gramo"),
-    (LITRO_UNIT, "Litro"),
-    (PIZCA_UNIT, "Pizca"),
-    (TROZO_UNIT, "Trozo"),
-    (HOJAS_UNIT, "Hoja"),
-    (RAMA_UNIT, "Rama"),
-    (CUADRO_UNIT, "Cuadro"),
-    (PIEZA_UNIT, "Pieza"),
-    (UNIDAD_UNIT, "Unidad")
-)
-
 
 class Ingredient(models.Model):
     slug = models.SlugField(max_length=100, unique=True, primary_key=True)
@@ -50,7 +26,7 @@ class Ingredient(models.Model):
 class UsedIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient)
     used = models.FloatField()
-    unit = models.CharField(max_length=1, choices=UNIT_CHOICES)
+    unit = models.CharField(max_length=50)
 
     def __str__(self):
         return self.ingredient.name
@@ -59,7 +35,7 @@ class UsedIngredient(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to='/')
+    image = models.ImageField(upload_to='recipes')
 
     cook_time = models.TimeField(null=True, blank=True)
     dificult = models.CharField(max_length=1, choices=DIFICULT_CHOICES, default=MEDIUM_DIFICULT)

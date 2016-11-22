@@ -5,7 +5,9 @@ var BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
 	context: __dirname,
 
-	entry: './assets/js/cookbook_index',
+	entry: {
+		list: './assets/js/cookbook_index',
+	},
 	output: {
 		path: path.resolve('./assets/bundles/'),
 		filename: '[name]-[hash].js'
@@ -26,7 +28,7 @@ module.exports = {
 				exclude: /node_modules/,
 				loader: 'babel-loader',
 				query: {
-					presets: ['es2015', 'react']
+					presets: ['es2015', 'stage-0', 'react']
 				}
 			},
 		]

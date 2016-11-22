@@ -1,19 +1,5 @@
 {% extends "cookbook/base.html" %}
 {% load render_bundle from webpack_loader %}
-
-{% block pre_scripts %}
-    <link rel="stylesheet" href="/static/css/cookbook.css">
-{% endblock pre_scripts %}
-
-{% block content %}
-    <div id="container" >
-        <div id="page"></div>
-        <div className='row'>
-            <div id="menu-button" style="position: absolute; left: 15px; top: 20px" >
-        </div>
-        <div id="cuerpo" class='container bs-docs-container'></div>
-    </div>
-{% endblock content %}
 {% block post_scripst %}
-     {% render_bundle 'main' %}
+     {% render_bundle 'list' %}
 {% endblock post_scripst %}
