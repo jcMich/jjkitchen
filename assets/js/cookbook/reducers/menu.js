@@ -1,4 +1,4 @@
-import { TOGGLE_ALERTS } from '../actions/alerts';
+import { TOGGLE_ALERTS } from '../actions/menu';
 
 export const AlertsReducer = (state=false, action) => {
 	switch(action.type)

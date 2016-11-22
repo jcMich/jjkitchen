@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { push as Menu } from 'react-burger-menu';
 
-import { toggleAlerts } from '../actions/alerts';
+import { toggleAlerts } from '../actions/menu';
 
 
 const MenuButton = (props) => {
@@ -37,9 +38,9 @@ const AlertsBurgerMenu = (props) => {
 			}
 		}}
 		>
-			<a href='#'> <i className='fa fa-archive'/><span><strong>Add Recipe</strong></span></a>
-			<a href='#'> <i className='fa fa-archive'/><span><strong>Add Ingredient</strong></span></a>
-			<a href='#'> <i className='fa fa-eye'/><span><strong>Show Ingredients</strong></span></a>
+			<Link to='/add'><i className='fa fa-archive'/><span><strong>Add Recipe</strong></span></Link>
+			<Link to=''><i className='fa fa-archive'/><span><strong>Add Ingredient</strong></span></Link>
+			<Link to=''><i className='fa fa-eye'/><span><strong>Show Ingredients</strong></span></Link>
 		</Menu>
 	);
 };
