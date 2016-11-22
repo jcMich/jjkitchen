@@ -53061,17 +53061,37 @@
 	var Form = function (_React$Component) {
 			_inherits(Form, _React$Component);
 
-			function Form() {
+			function Form(props) {
 					_classCallCheck(this, Form);
 
-					return _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).apply(this, arguments));
+					var _this2 = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
+
+					_this2.state = {
+							b64image: null
+					};
+					return _this2;
 			}
 
 			_createClass(Form, [{
 					key: 'onDrop',
-					value: function onDrop(acceptedFiles, rejectedFiles) {
-							console.log('Accepted files: ', acceptedFiles);
-							console.log('Rejected files: ', rejectedFiles);
+					value: function onDrop(files) {
+							var _this3 = this;
+
+							if (files.length > 0) {
+									var reader;
+
+									(function () {
+											var file = files[0];
+											reader = new FileReader();
+
+											var _this = _this3;
+
+											reader.readAsDataURL(file);
+											reader.onload = function () {
+													_this.setState({ b64image: this.result });
+											};
+									})();
+							}
 					}
 			}, {
 					key: 'render',
@@ -53085,6 +53105,15 @@
 									borderStyle: 'dashed',
 									borderRadius: 5
 							};
+							var image_styles = { width: '100%', height: '100%', objectFit: 'cover' };
+							var preview = this.state.b64image ? _react2.default.createElement('img', {
+									src: this.state.b64image,
+									style: image_styles,
+									className: 'img-fluid' }) : _react2.default.createElement(
+									'p',
+									null,
+									'Upload image'
+							);
 
 							return _react2.default.createElement(
 									'form',
@@ -53097,12 +53126,12 @@
 													{ className: 'col-md-4' },
 													_react2.default.createElement(
 															_reactDropzone2.default,
-															{ onDrop: this.onDrop, style: dd_style },
-															_react2.default.createElement(
-																	'div',
-																	null,
-																	'Upload Image'
-															)
+															{ onDrop: this.onDrop.bind(this),
+																	multiple: false,
+																	accept: 'image/*',
+																	style: dd_style,
+																	disablePreview: true },
+															preview
 													)
 											),
 											_react2.default.createElement(
