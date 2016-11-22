@@ -6,6 +6,7 @@ npm-debug.log
 *.pyc
 *.sqlite3
 /static
+/media
 # IntelliJ
 *.iml
 /.idea
