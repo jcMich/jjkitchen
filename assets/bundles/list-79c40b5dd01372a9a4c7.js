@@ -52956,9 +52956,9 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
-	exports.RecipeForm = undefined;
+	exports.RecipeForm = exports.RecipeReduxForm = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -52969,6 +52969,8 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reduxForm = __webpack_require__(257);
+
+	var _reactRedux = __webpack_require__(172);
 
 	var _reactDropzone = __webpack_require__(550);
 
@@ -52983,227 +52985,237 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var renderField = function renderField(_ref) {
-			var input = _ref.input,
-			    label = _ref.label,
-			    col = _ref.col,
-			    type = _ref.type,
-			    _ref$meta = _ref.meta,
-			    touched = _ref$meta.touched,
-			    error = _ref$meta.error;
-			return _react2.default.createElement(
-					'div',
+		var input = _ref.input,
+		    label = _ref.label,
+		    col = _ref.col,
+		    type = _ref.type,
+		    _ref$meta = _ref.meta,
+		    touched = _ref$meta.touched,
+		    error = _ref$meta.error;
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'div',
+				{ className: col },
+				_react2.default.createElement('input', _extends({}, input, { type: type, placeholder: label, className: 'form-control' })),
+				touched && error && _react2.default.createElement(
+					'span',
 					null,
-					_react2.default.createElement(
-							'div',
-							{ className: col },
-							_react2.default.createElement('input', _extends({}, input, { type: type, placeholder: label, className: 'form-control' })),
-							touched && error && _react2.default.createElement(
-									'span',
-									null,
-									error
-							)
-					)
-			);
+					error
+				)
+			)
+		);
 	};
 
 	var renderIngredients = function renderIngredients(_ref2) {
-			var fields = _ref2.fields,
-			    _ref2$meta = _ref2.meta,
-			    touched = _ref2$meta.touched,
-			    error = _ref2$meta.error;
-			return _react2.default.createElement(
-					'div',
+		var fields = _ref2.fields,
+		    _ref2$meta = _ref2.meta,
+		    touched = _ref2$meta.touched,
+		    error = _ref2$meta.error;
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement('i', { className: 'fa fa-plus fa-2x', onClick: function onClick() {
+						return fields.push({});
+					} }),
+				touched && error && _react2.default.createElement(
+					'span',
 					null,
-					_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement('i', { className: 'fa fa-plus fa-2x', onClick: function onClick() {
-											return fields.push({});
-									} }),
-							touched && error && _react2.default.createElement(
-									'span',
-									null,
-									error
-							)
-					),
-					fields.map(function (ingredients, index) {
-							return _react2.default.createElement(
-									'div',
-									{ key: index, className: 'form-group row' },
-									_react2.default.createElement(_reduxForm.Field, {
-											col: 'col-md-7',
-											name: ingredients + '.ingredient.name',
-											type: 'text',
-											component: renderField,
-											label: 'Name' }),
-									_react2.default.createElement(_reduxForm.Field, {
-											col: 'col-md-2',
-											name: ingredients + '.use',
-											type: 'text',
-											component: renderField,
-											label: 'Use' }),
-									_react2.default.createElement(_reduxForm.Field, {
-											col: 'col-md-2',
-											name: ingredients + '.unit',
-											type: 'text',
-											component: renderField,
-											label: 'Unit' }),
-									_react2.default.createElement('i', {
-											className: 'col-md-1 fa fa-trash fa-2x',
-											onClick: function onClick() {
-													return fields.remove(index);
-											} })
-							);
-					})
-			);
+					error
+				)
+			),
+			fields.map(function (ingredients, index) {
+				return _react2.default.createElement(
+					'div',
+					{ key: index, className: 'form-group row' },
+					_react2.default.createElement(_reduxForm.Field, {
+						col: 'col-md-7',
+						name: ingredients + '.ingredient.name',
+						type: 'text',
+						component: renderField,
+						label: 'Name' }),
+					_react2.default.createElement(_reduxForm.Field, {
+						col: 'col-md-2',
+						name: ingredients + '.use',
+						type: 'text',
+						component: renderField,
+						label: 'Use' }),
+					_react2.default.createElement(_reduxForm.Field, {
+						col: 'col-md-2',
+						name: ingredients + '.unit',
+						type: 'text',
+						component: renderField,
+						label: 'Unit' }),
+					_react2.default.createElement('i', {
+						className: 'col-md-1 fa fa-trash fa-2x',
+						onClick: function onClick() {
+							return fields.remove(index);
+						} })
+				);
+			})
+		);
 	};
 
 	var Form = function (_React$Component) {
-			_inherits(Form, _React$Component);
+		_inherits(Form, _React$Component);
 
-			function Form(props) {
-					_classCallCheck(this, Form);
+		function Form(props) {
+			_classCallCheck(this, Form);
 
-					var _this2 = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
+			var _this2 = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
 
-					_this2.state = {
-							b64image: null
-					};
-					return _this2;
+			_this2.state = {
+				b64image: null
+			};
+			return _this2;
+		}
+
+		_createClass(Form, [{
+			key: 'onDrop',
+			value: function onDrop(files) {
+				var _this3 = this;
+
+				if (files.length > 0) {
+					var reader;
+
+					(function () {
+						var file = files[0];
+						reader = new FileReader();
+
+						var _this = _this3;
+
+						reader.readAsDataURL(file);
+						reader.onload = function () {
+							_this.props.change('image', this.result);
+						};
+					})();
+				}
 			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var handleSubmit = this.props.handleSubmit;
 
-			_createClass(Form, [{
-					key: 'onDrop',
-					value: function onDrop(files) {
-							var _this3 = this;
+				var dd_style = {
+					height: 270,
+					borderWidth: 2,
+					borderColor: '#666',
+					borderStyle: 'dashed',
+					borderRadius: 5
+				};
+				var image_styles = { width: '100%', height: '100%', objectFit: 'cover' };
 
-							if (files.length > 0) {
-									var reader;
+				var preview = this.props.image ? _react2.default.createElement('img', {
+					src: this.props.image,
+					style: image_styles,
+					className: 'img-fluid' }) : _react2.default.createElement(
+					'p',
+					null,
+					'Upload image'
+				);
 
-									(function () {
-											var file = files[0];
-											reader = new FileReader();
+				return _react2.default.createElement(
+					'form',
+					{ onSubmit: handleSubmit, style: { marginTop: '20px' } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-4' },
+							_react2.default.createElement(
+								_reactDropzone2.default,
+								{ onDrop: this.onDrop.bind(this),
+									multiple: false,
+									accept: 'image/*',
+									style: dd_style,
+									disablePreview: true },
+								preview
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-8' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'form-group' },
+								_react2.default.createElement(_reduxForm.Field, { name: 'name',
+									component: 'input',
+									className: 'form-control',
+									type: 'text',
+									placeholder: 'Name' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'form-group' },
+								_react2.default.createElement(_reduxForm.Field, { name: 'description',
+									component: 'textarea',
+									className: 'form-control',
+									type: 'text',
+									style: { height: '160px' },
+									placeholder: 'Description' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'form-group' },
+								_react2.default.createElement(_reduxForm.Field, { name: 'dificult',
+									component: 'input',
+									className: 'form-control',
+									type: 'text',
+									placeholder: 'Difilult' })
+							)
+						)
+					),
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Ingredients'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group row' },
+						_react2.default.createElement(_reduxForm.FieldArray, { name: 'ingredients',
+							className: 'form-control',
+							component: renderIngredients })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group row' },
+						_react2.default.createElement(_reduxForm.Field, { name: 'directions',
+							component: 'textarea',
+							className: 'form-control',
+							type: 'text',
+							style: { height: '160px' },
+							placeholder: 'Directions' })
+					),
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit', className: 'btn btn-primary' },
+						'Submit'
+					)
+				);
+			}
+		}]);
 
-											var _this = _this3;
-
-											reader.readAsDataURL(file);
-											reader.onload = function () {
-													_this.setState({ b64image: this.result });
-											};
-									})();
-							}
-					}
-			}, {
-					key: 'render',
-					value: function render() {
-							var handleSubmit = this.props.handleSubmit;
-
-							var dd_style = {
-									height: 270,
-									borderWidth: 2,
-									borderColor: '#666',
-									borderStyle: 'dashed',
-									borderRadius: 5
-							};
-							var image_styles = { width: '100%', height: '100%', objectFit: 'cover' };
-							var preview = this.state.b64image ? _react2.default.createElement('img', {
-									src: this.state.b64image,
-									style: image_styles,
-									className: 'img-fluid' }) : _react2.default.createElement(
-									'p',
-									null,
-									'Upload image'
-							);
-
-							return _react2.default.createElement(
-									'form',
-									{ onSubmit: handleSubmit, style: { marginTop: '20px' } },
-									_react2.default.createElement(
-											'div',
-											{ className: 'row' },
-											_react2.default.createElement(
-													'div',
-													{ className: 'col-md-4' },
-													_react2.default.createElement(
-															_reactDropzone2.default,
-															{ onDrop: this.onDrop.bind(this),
-																	multiple: false,
-																	accept: 'image/*',
-																	style: dd_style,
-																	disablePreview: true },
-															preview
-													)
-											),
-											_react2.default.createElement(
-													'div',
-													{ className: 'col-md-8' },
-													_react2.default.createElement(
-															'div',
-															{ className: 'form-group' },
-															_react2.default.createElement(_reduxForm.Field, { name: 'title',
-																	component: 'input',
-																	className: 'form-control',
-																	type: 'text',
-																	placeholder: 'Title' })
-													),
-													_react2.default.createElement(
-															'div',
-															{ className: 'form-group' },
-															_react2.default.createElement(_reduxForm.Field, { name: 'description',
-																	component: 'textarea',
-																	className: 'form-control',
-																	type: 'text',
-																	style: { height: '160px' },
-																	placeholder: 'Description' })
-													),
-													_react2.default.createElement(
-															'div',
-															{ className: 'form-group' },
-															_react2.default.createElement(_reduxForm.Field, { name: 'dificult',
-																	component: 'input',
-																	className: 'form-control',
-																	type: 'text',
-																	placeholder: 'Difilult' })
-													)
-											)
-									),
-									_react2.default.createElement(
-											'h4',
-											null,
-											'Ingredients'
-									),
-									_react2.default.createElement(
-											'div',
-											{ className: 'form-group row' },
-											_react2.default.createElement(_reduxForm.FieldArray, { name: 'ingredients',
-													className: 'form-control',
-													component: renderIngredients })
-									),
-									_react2.default.createElement(
-											'div',
-											{ className: 'form-group row' },
-											_react2.default.createElement(_reduxForm.Field, { name: 'directions',
-													component: 'textarea',
-													className: 'form-control',
-													type: 'text',
-													style: { height: '160px' },
-													placeholder: 'Directions' })
-									),
-									_react2.default.createElement(
-											'button',
-											{ type: 'submit', className: 'btn btn-primary' },
-											'Submit'
-									)
-							);
-					}
-			}]);
-
-			return Form;
+		return Form;
 	}(_react2.default.Component);
 
-	var RecipeForm = exports.RecipeForm = (0, _reduxForm.reduxForm)({
-			form: 'recipe' // a unique name for this form
+	var RecipeReduxForm = exports.RecipeReduxForm = (0, _reduxForm.reduxForm)({
+		form: 'recipe' // a unique name for this form
 	})(Form);
+
+	var selector = (0, _reduxForm.formValueSelector)('recipe'); // <-- same as form name
+	var RecipeForm = exports.RecipeForm = (0, _reactRedux.connect)(function (state) {
+		var _selector = selector(state, 'image', 'name'),
+		    image = _selector.image,
+		    name = _selector.name;
+
+		return { image: image };
+	})(RecipeReduxForm);
 
 /***/ },
 /* 550 */

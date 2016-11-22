@@ -1,5 +1,6 @@
 import React from 'react';
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, FieldArray, formValueSelector, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import Dropzone  from 'react-dropzone';
 
 
@@ -56,7 +57,6 @@ class Form extends React.Component {
 	}
 
 	onDrop(files) {
-
 		if(files.length > 0) {
 			const file = files[0];
 			var reader = new FileReader();
@@ -64,7 +64,7 @@ class Form extends React.Component {
 
 			reader.readAsDataURL(file);
 			reader.onload = function() {
-				_this.setState({b64image: this.result})
+				_this.props.change('image', this.result)
 			};
 		}
 	}
@@ -79,8 +79,9 @@ class Form extends React.Component {
 			borderRadius: 5
 		};
 		const image_styles = {width:'100%', height: '100%', objectFit: 'cover'}
-		const preview = this.state.b64image ? <img
-			src={ this.state.b64image }
+
+		const preview = this.props.image ? <img
+			src={ this.props.image }
 			style={image_styles}
 			className="img-fluid" /> : <p>Upload image</p>;
 
@@ -98,11 +99,11 @@ class Form extends React.Component {
 					</div>
 					<div className="col-md-8">
 						<div className="form-group">
-							<Field name="title"
+							<Field name="name"
 								component="input"
 								className="form-control"
 								type="text"
-								placeholder="Title" />
+								placeholder="Name" />
 						</div>
 						<div className="form-group">
 							<Field name="description"
@@ -140,6 +141,12 @@ class Form extends React.Component {
 		);
 	}
 }
-export const RecipeForm = reduxForm({
+export const RecipeReduxForm = reduxForm({
   form: 'recipe' // a unique name for this form
 })(Form);
+
+const selector = formValueSelector('recipe') // <-- same as form name
+export const RecipeForm = connect(state => {
+    const { image, name} = selector(state, 'image', 'name')
+    return { image }
+})(RecipeReduxForm)
